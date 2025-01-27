@@ -7,11 +7,6 @@ counter = 0  # Contatore inizializzato a 0
 flag = [False, False]  # flag[0] e flag[1] per i processi 0 e 1
 
 def main():
-	print("***************************************************")
-	print("sia p1 che p0 mettono il loro flag a true")
-	print("naturalmente nello stesso istante,quindi stallo")
-	print("***************************************************\n")
-
 	# Creazione dei thread per i due processi
 	t0 = threading.Thread(target=process_0)
 	t1 = threading.Thread(target=process_1)
@@ -33,12 +28,12 @@ def main():
 def process_0():
 	global counter, flag
 	for _ in range(10):
-		flag[0]=True
 		while flag[1]:  # Se il processo 1 sta cercando di entrare
-			print("p0 tenta di accederealla sessione critica")  # Attendo che il processo 1 termini o che il mio turno arrivi
-			time.sleep(1)
+			pass
 
-		# Sezione critica
+		# Entro nella sezione critica
+		flag[0] = True
+		
 		print(f"Processo 0 entra nella sezione critica. Counter = {counter}")
 		counter += 1
 		time.sleep(0.1)  # Simula il lavoro nella sezione critica
@@ -50,12 +45,12 @@ def process_0():
 def process_1():
 	global counter, flag  
 	for _ in range(10):
-		flag[1]=True
 		while flag[0]:  # Se il processo 0 sta cercando di entrare
-			print("p1 tenta di accederealla sessione critica")
-			time.sleep(1)  # Attendo che il processo 1 termini o che il mio turno arrivi
+			pass
        
-		# Sezione critica
+		# Entro nella sezione critica
+		flag[1] = True
+		
 		print(f"Processo 1 entra nella sezione critica. Counter = {counter}")
 		counter += 1
 		time.sleep(0.1)  # Simula il lavoro nella sezione critica
