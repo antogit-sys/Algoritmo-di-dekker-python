@@ -35,9 +35,9 @@ def process_0():
 	for _ in range(10):
 		flag[0]=True
 		while flag[1]:  # Se il processo 1 sta cercando di entrare
-			#time.sleep(1)
 			print("p0 tenta di accederealla sessione critica")  # Attendo che il processo 1 termini o che il mio turno arrivi
-			
+			time.sleep(1)
+
 		# Sezione critica
 		print(f"Processo 0 entra nella sezione critica. Counter = {counter}")
 		counter += 1
@@ -53,7 +53,7 @@ def process_1():
 		flag[1]=True
 		while flag[0]:  # Se il processo 0 sta cercando di entrare
 			print("p1 tenta di accederealla sessione critica")
-			#time.sleep(1)  # Attendo che il processo 1 termini o che il mio turno arrivi
+			time.sleep(1)  # Attendo che il processo 1 termini o che il mio turno arrivi
        
 		# Sezione critica
 		print(f"Processo 1 entra nella sezione critica. Counter = {counter}")
