@@ -1,0 +1,68 @@
+import threading
+import time
+import sys
+
+# Variabili condivise
+counter = 0  # Contatore inizializzato a 0
+flag = [False, False]  # flag[0] e flag[1] per i processi 0 e 1
+turno = 1
+
+def main():
+	# Creazione dei thread per i due processi
+	t0 = threading.Thread(target=process_0)
+	t1 = threading.Thread(target=process_1)
+
+	# Avvio dei thread
+	t0.start()
+	t1.start()
+
+	# Attendere che entrambi i thread finiscano
+	t0.join()
+	t1.join()
+
+	# Risultato finale
+	print(f"Counter finale: {counter}")
+	
+	return 0
+
+# Sezione critica per il processo 0
+def process_0():
+	global counter, flag, turno
+	for _ in range(10):
+		flag[0]=True
+		while flag[1]:  # Se il processo 1 sta cercando di entrare
+			if(turno == 1):
+				flag[0]=False
+				while turno == 1: pass #busy wait
+				flag[0]=True
+		
+		# Sezione critica
+		print(f"Processo 0 entra nella sezione critica. Counter = {counter}")
+		counter += 1
+		time.sleep(0.1)  # Simula il lavoro nella sezione critica
+		
+		# Uscita dalla sezione critica
+		flag[0] = False  # Indico che sono uscito dalla sezione critica
+		turno = 1
+# Sezione critica per il processo 1
+def process_1():
+	global counter, flag, turno
+	for _ in range(10):
+		flag[1]=True
+		while flag[0]:  # Se il processo 1 sta cercando di entrare
+			if(turno == 0):
+				flag[1]=False
+				while turno == 0: pass #busy wait
+				flag[1]=True
+		
+		# Sezione critica
+		print(f"Processo 1 entra nella sezione critica. Counter = {counter}")
+		counter += 1
+		time.sleep(0.1)  # Simula il lavoro nella sezione critica
+		
+		# Uscita dalla sezione critica
+		flag[1] = False  # Indico che sono uscito dalla sezione critica
+		turno = 0
+
+if __name__ == '__main__':
+	sys.exit(main())

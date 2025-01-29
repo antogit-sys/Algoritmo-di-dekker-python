@@ -74,3 +74,19 @@ CONTRO:
 	<li>presenza di Busy wait(quindi spreco della cpu)</li>
 </ul>
 
+## ~ Tentativo 5
+Ogni processo ha una propria variabile flag che indica se vuole andare
+nella sezione critica o meno. Variabile turno globale: specifica chi ha
+il tentativo di insistere nella propria sezione critica
+
+PRO: la mutua esclusione è garantita
+
+CONTRO:
+<ul>
+	<li> Se un processo fallisce dentro la sua sezione critica o prima di
+	mettere false nel suo flag allora l'altro è bloccato per sempre (livelock)</li>
+	<li>Algoritmo complesso su n processi</li>
+	<li>Presenza di Busy wait(quindi spreco della cpu)</li>
+</ul>
+
+
