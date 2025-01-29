@@ -7,11 +7,6 @@ counter = 0  # Contatore inizializzato a 0
 flag = [False, False]  # flag[0] e flag[1] per i processi 0 e 1
 
 def main():
-	print("***************************************************")
-	print("sia p1 che p0 mettono il loro flag a true")
-	print("naturalmente nello stesso istante,quindi stallo")
-	print("***************************************************\n")
-
 	# Creazione dei thread per i due processi
 	t0 = threading.Thread(target=process_0)
 	t1 = threading.Thread(target=process_1)
