@@ -45,3 +45,32 @@ CONTRO:
 	<li> Se entrambi settano il flag a True prima che uno dei 2 verifichi la
 	condizione del while si ha lo stallo! (livelock)</li>
 </ul>
+
+## ~ Tentativo 3
+in questo caso con flag[0]=true indico prima di voler entrare nella
+sezione critica 
+
+PRO: la mutua esclusione è garantita
+
+CONTRO:
+<ul>
+	<li> Se un processo fallisce dentro la sua sezione critica o prima di
+	mettere false nel suo flag allora l'altro è bloccato per sempre (livelock)</li>
+	<li>presenza di Busy wait(quindi spreco della cpu)</li>
+	<li> Se entrambi settano il flag a True prima che uno dei 2 verifichi la
+	condizione del while si ha lo stallo! (livelock)</li>
+</ul>
+
+## ~ Tentativo 4
+se l'altro sta in sezione critica, il processo corrente aspetta n secondi
+finche non finisce 
+
+PRO: la mutua esclusione è garantita
+
+CONTRO:
+<ul>
+	<li> Se un processo fallisce dentro la sua sezione critica o prima di
+	mettere false nel suo flag allora l'altro è bloccato per sempre (livelock)</li>
+	<li>presenza di Busy wait(quindi spreco della cpu)</li>
+</ul>
+
